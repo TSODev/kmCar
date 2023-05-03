@@ -4,7 +4,7 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fr.tsodev.kmcar.model.kmRecord
+import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.repository.kmRecordRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -15,8 +15,8 @@ import javax.inject.Inject
 
 
 @HiltViewModel
-class kmRecordViewModel @Inject constructor(private val repository: kmRecordRepository) :ViewModel() {
-    private val _kmRecordList = MutableStateFlow<List<kmRecord>>(emptyList())
+class KMRecordViewModel @Inject constructor(private val repository: kmRecordRepository) :ViewModel() {
+    private val _kmRecordList = MutableStateFlow<List<KmRec>>(emptyList())
     val kmRecordList = _kmRecordList.asStateFlow()
 
     init {
@@ -33,7 +33,7 @@ class kmRecordViewModel @Inject constructor(private val repository: kmRecordRepo
         }
     }
 
-    fun addRecord(kmRecord: kmRecord) = viewModelScope.launch { repository.addRecord(kmRecord) }
-    fun updateRecord(kmRecord: kmRecord) = viewModelScope.launch { repository.updateRecord(kmRecord) }
-    fun deleteRecord(kmRecord: kmRecord) = viewModelScope.launch { repository.deleteRecord(kmRecord) }
+    fun addRecord(kmRec: KmRec) = viewModelScope.launch { repository.addRecord(kmRec) }
+    fun updateRecord(kmRec: KmRec) = viewModelScope.launch { repository.updateRecord(kmRec) }
+    fun deleteRecord(kmRec: KmRec) = viewModelScope.launch { repository.deleteRecord(kmRec) }
 }

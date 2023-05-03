@@ -9,7 +9,7 @@ import java.util.Date
 import java.util.UUID
 
 @Entity(tableName = "kmRecords_tbl")
-data class kmRecord(
+data class KmRec(
     @PrimaryKey
     val id: UUID = UUID.randomUUID(),
 
