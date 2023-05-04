@@ -4,9 +4,8 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import fr.tsodev.kmcar.screen.AddNewKmEntry
-import fr.tsodev.kmcar.screen.KmCarScreen
-import fr.tsodev.kmcar.screen.home.HomeScreen
+import fr.tsodev.kmcar.screens.AddNewKmEntry
+import fr.tsodev.kmcar.screens.home.HomeScreen
 
 @Composable
 fun KmCarNavigation () {

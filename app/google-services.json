@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "183120822881",
+    "project_id": "kmcar-3ee2d",
+    "storage_bucket": "kmcar-3ee2d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:183120822881:android:0194b00a0bd1687a8ae020",
+        "android_client_info": {
+          "package_name": "fr.tsodev.kmcar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "183120822881-so29chmqfve3tagfr07aeugk5h6j2eih.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDGD11945Z0Pl3QK7o0fNIkiv20vU3LO2U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "183120822881-so29chmqfve3tagfr07aeugk5h6j2eih.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,4 @@
-package fr.tsodev.kmcar.util
+package fr.tsodev.kmcar.utils
 
 import androidx.compose.ui.graphics.PathEffect
 import fr.tsodev.kmcar.model.KmRec

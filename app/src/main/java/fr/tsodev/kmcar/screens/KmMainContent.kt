@@ -1,4 +1,4 @@
-package fr.tsodev.kmcar.screen
+package fr.tsodev.kmcar.screens
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Column
@@ -9,14 +9,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.unit.dp
-import fr.tsodev.kmcar.MainActivity.Companion.lastKmRec
 import fr.tsodev.kmcar.components.DrawDottedLine
 import fr.tsodev.kmcar.components.ShowProgress
 import fr.tsodev.kmcar.components.ShowTotalKm
-import fr.tsodev.kmcar.model.KmRec
-import fr.tsodev.kmcar.util.Constants
+import fr.tsodev.kmcar.utils.Constants
 
 @SuppressLint("StateFlowValueCalledInComposition", "ComposableNaming")
 @Composable
@@ -35,7 +32,7 @@ fun KmMainContent(innerPadding: PaddingValues) {
         ) {
             DrawDottedLine(pathEffect = Constants.DOT_LINE)
             ShowProgress( percent = 75)
-            ShowTotalKm(total = lastKmRec.kmTotal)
+            ShowTotalKm(total = 0.0)
             DrawDottedLine(pathEffect = Constants.DOT_LINE)
 
 

@@ -1,4 +1,4 @@
-package fr.tsodev.kmcar.util
+package fr.tsodev.kmcar.utils
 
 import java.text.DateFormat
 import java.util.Date

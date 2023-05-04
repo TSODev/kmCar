@@ -1,6 +1,5 @@
-package fr.tsodev.kmcar.screen
+package fr.tsodev.kmcar.screens
 
-import android.widget.Toast
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Menu
@@ -10,18 +9,14 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.material3.TopAppBarColors
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.navigation.NavController
 import fr.tsodev.kmcar.R
-import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 
 @OptIn(ExperimentalMaterial3Api::class)

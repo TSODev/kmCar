@@ -1,9 +1,7 @@
-package fr.tsodev.kmcar.screen
+package fr.tsodev.kmcar.screens
 
 import android.util.Log
 import android.widget.Toast
-import androidx.activity.ComponentActivity
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -41,8 +39,8 @@ import fr.tsodev.kmcar.R
 import fr.tsodev.kmcar.components.DrawDottedLine
 import fr.tsodev.kmcar.components.InputField
 import fr.tsodev.kmcar.model.KmRec
-import fr.tsodev.kmcar.util.Constants
-import fr.tsodev.kmcar.util.DateFormater.Companion.DateToString
+import fr.tsodev.kmcar.utils.Constants
+import fr.tsodev.kmcar.utils.DateFormater.Companion.DateToString
 import java.time.Instant
 import java.util.Date
 import java.util.UUID

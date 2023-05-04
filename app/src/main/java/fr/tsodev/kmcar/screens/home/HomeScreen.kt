@@ -1,21 +1,13 @@
-package fr.tsodev.kmcar.screen.home
+package fr.tsodev.kmcar.screens.home
 
 import android.annotation.SuppressLint
-import android.util.Log
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
-import fr.tsodev.kmcar.MainActivity.Companion.lastKmRec
-import fr.tsodev.kmcar.model.KmRec
-import fr.tsodev.kmcar.screen.KMRecordViewModel
-import fr.tsodev.kmcar.screen.KmCarScreen
-import java.time.Instant
-import java.util.Date
-import java.util.UUID
+import fr.tsodev.kmcar.screens.KmCarScreen
 
 @SuppressLint("StateFlowValueCalledInComposition")
 @Composable
