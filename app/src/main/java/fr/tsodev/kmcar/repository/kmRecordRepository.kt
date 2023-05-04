@@ -6,6 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.conflate
 import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.last
 import javax.inject.Inject
 
 class kmRecordRepository @Inject constructor(private val kmRecordDBDao: kmRecordDBDao) {
@@ -15,4 +16,5 @@ class kmRecordRepository @Inject constructor(private val kmRecordDBDao: kmRecord
     suspend fun deleteAllRecord() = kmRecordDBDao.deleteAll()
     fun getAllRecords(): Flow<List<KmRec>> = kmRecordDBDao.getRecords().flowOn(
         Dispatchers.IO).conflate()
+
 }
