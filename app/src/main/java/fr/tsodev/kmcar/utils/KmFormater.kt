@@ -7,8 +7,8 @@ class KmFormater {
 
 
     companion object {
-        fun KmToFormatedString( value: Double, length: Int, padChar: Char) : String {
-            return value.roundToInt().toString().padStart(length,padChar)
+        fun KmToFormatedString( value: String, length: Int, padChar: Char) : String {
+            return value.padStart(length,padChar)
         }
     }
 }

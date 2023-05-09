@@ -10,7 +10,7 @@ import androidx.compose.ui.unit.sp
 import fr.tsodev.kmcar.utils.KmFormater.Companion.KmToFormatedString
 
 @Composable
-fun CompteurKm( value : Double) {
+fun CompteurKm( value : String) {
 
     val displayedKM: String = KmToFormatedString(value, 6, '0')
 

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">kmCar</string>
+    <string name="create_account"> Entrez une adresse email et un mot de passe valide (minimum 8 caractères)</string>
 </resources>

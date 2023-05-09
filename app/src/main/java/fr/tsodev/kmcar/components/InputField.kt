@@ -14,6 +14,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,11 +27,12 @@ fun InputField (
     modifier : Modifier = Modifier,
     valueState: MutableState<String>,
     labelId: String,
+    imageVector : ImageVector = Icons.Rounded.LocationOn,
     enabled: Boolean,
     isSingleLine: Boolean,
     keyboardType : KeyboardType = KeyboardType.Ascii,
     imeAction : ImeAction = ImeAction.Next,
-    onAction : KeyboardActions = KeyboardActions.Default
+    onAction : KeyboardActions = KeyboardActions.Default,
     ) {
         OutlinedTextField(value = valueState.value,
             onValueChange = {valueState.value = it},
@@ -38,7 +40,7 @@ fun InputField (
             singleLine = isSingleLine,
             textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
             modifier = modifier.padding(bottom = 10.dp, start = 10.dp, end = 10.dp),
-            leadingIcon = { Icon(imageVector = Icons.Rounded.LocationOn, contentDescription = "Icon")},
+            leadingIcon = { Icon(imageVector = imageVector, contentDescription = "Icon")},
             enabled = enabled,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType,
                                         imeAction = imeAction),

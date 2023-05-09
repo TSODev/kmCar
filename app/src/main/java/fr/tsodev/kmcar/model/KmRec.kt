@@ -1,22 +1,32 @@
 package fr.tsodev.kmcar.model
 
 
+import fr.tsodev.kmcar.utils.Constants.INITIAL_KM_RECORD
+import java.io.Serializable
 import java.time.Instant
 import java.util.Date
 import java.util.UUID
 
 
 data class KmRec(
+    val userId: String,
+    val date: Date,
+    val total: String
+    ) {
 
-    val id: UUID = UUID.randomUUID(),
+    constructor() : this("", Date.from(Instant.now()), "0")
 
-    val entryDate: Date = Date.from(Instant.now()),
+    fun toMap(): MutableMap<String, Any> {
+        return mutableMapOf(
+        "userId" to this.userId,
+        "date" to this.date,
+        "total" to this.total
+        )
+    }
 
-    val days: Int,
-
-    val kmValue: Double,
-
-    val kmTotal: Double,
+    fun toKmRec(userId: String, date: Date, total: String): KmRec {
+        return KmRec(userId= userId, date = date, total = total)
+    }
 
 
-)
+}

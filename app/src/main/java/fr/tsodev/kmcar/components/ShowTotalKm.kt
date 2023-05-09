@@ -1,5 +1,6 @@
 package fr.tsodev.kmcar.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -30,16 +31,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun ShowTotalKm( total : Double) {
+fun ShowTotalKm( total : String) {
     Card(modifier = Modifier
         .padding(4.dp)
         .fillMaxWidth()
         .height(180.dp)
-        .background(MaterialTheme.colorScheme.onSecondary),
+        .background(Color.Transparent),
         shape = RoundedCornerShape(corner = CornerSize(2.dp)),
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
-        )
+        ),
+        border = BorderStroke(1.dp, Color.LightGray)
     ) {
         Row( modifier = Modifier
             .padding(4.dp)
@@ -48,7 +50,7 @@ fun ShowTotalKm( total : Double) {
             verticalAlignment = Alignment.CenterVertically) {
             Icon(imageVector = Icons.Default.Info,
                 contentDescription = "Info icon",
-                modifier = Modifier.size(40.dp),
+                modifier = Modifier.size(80.dp),
                 tint = Color(0xFF781A56)
                 )
             Spacer(modifier = Modifier.size(30.dp))

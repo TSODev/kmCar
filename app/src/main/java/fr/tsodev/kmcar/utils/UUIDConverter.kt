@@ -4,12 +4,13 @@ import java.util.UUID
 
 class UUIDConverter {
 
-    fun fromUUID(uuid: UUID):String? {
-        return uuid.toString()
-    }
+    companion object {
+        fun fromUUID(uuid: UUID): String {
+            return uuid.toString()
+        }
 
-
-    fun uuidFromString(string: String?): UUID? {
-        return UUID.fromString(string)
+        fun uuidFromString(string: String?): UUID? {
+            return UUID.fromString(string)
+        }
     }
 }

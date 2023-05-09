@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace 'fr.tsodev.kmcar'
-    compileSdk 33
+    compileSdkPreview 'UpsideDownCake'
 
     defaultConfig {
         applicationId "fr.tsodev.kmcar"
@@ -54,10 +54,16 @@ android {
 }
 
 dependencies {
+
+    implementation "androidx.core:core:1.10.0"
+
     //Hilt
     def hilt_version = "2.44"
     implementation("com.google.dagger:hilt-android:$hilt_version")
     kapt("com.google.dagger:hilt-android-compiler:2.44")
+    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.0")
 
     // Coroutines
     def coroutine_version = "1.6.4"
@@ -65,13 +71,14 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutine_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:$coroutine_version")
 
-
-    def lifecycle_version = "2.5.1"
+    def lifecycle_version = "2.6.1"
 
     // ViewModel
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
     // ViewModel utilities for Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-compose:$lifecycle_version")
+    implementation("androidx.compose.runtime:runtime-livedata:1.4.3")
 
 
     // Navigation Compose
