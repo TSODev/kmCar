@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.tsodev.kmcar.R
 
-@Preview
 @Composable
 fun KmLogo(imageId: Int ,modifier: Modifier = Modifier) {
 

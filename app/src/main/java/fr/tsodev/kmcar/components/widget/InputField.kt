@@ -1,5 +1,6 @@
 package fr.tsodev.kmcar.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
@@ -33,7 +34,10 @@ fun InputField (
     keyboardType : KeyboardType = KeyboardType.Ascii,
     imeAction : ImeAction = ImeAction.Next,
     onAction : KeyboardActions = KeyboardActions.Default,
+    validationRegEx: String = "",
+    visible: Boolean
     ) {
+        if (visible)
         OutlinedTextField(value = valueState.value,
             onValueChange = {valueState.value = it},
             label = { Text(text = labelId)},
@@ -46,4 +50,8 @@ fun InputField (
                                         imeAction = imeAction),
             keyboardActions = onAction
         )
+        else
+            Box() {
+
+            }
 }

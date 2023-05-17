@@ -7,12 +7,15 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import fr.tsodev.kmcar.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
+import java.util.UUID
 
 class LoginScreenViewModel: ViewModel() {
 
@@ -23,6 +26,7 @@ class LoginScreenViewModel: ViewModel() {
 
 
     fun createUserWithEmailAndPassword(email: String, password: String, callback: () -> Unit) {
+        val car = Constants.NO_CAR_FOUND
         if (_loading.value == false) _loading.value = true
     try {
         auth.createUserWithEmailAndPassword(email, password)
@@ -48,6 +52,23 @@ class LoginScreenViewModel: ViewModel() {
         user["user_id"] = userId.toString()
         user["display_name"] = displayName.toString()
 
+//        val vehicule: MutableMap<String, Any> = mutableMapOf<String, Any>()
+//        val carId = UUID.randomUUID().toString()
+//        vehicule["id"] = carId
+//        vehicule["userId"] = userId.toString()
+//        vehicule["plaque"] = car.toString()
+
+//        user["carId"] = carId.toString()
+
+//        FirebaseFirestore.getInstance().collection("cars").add(vehicule)
+//            .addOnSuccessListener {
+//                Log.d("FBSTORE", "onCreate: ${it.id}")
+//            }
+//            .addOnFailureListener {
+//                Log.d("FBSTORE", "onCreate: (Failure) $it, for ${currentUser.toString()}")
+//            }
+
+
 
         FirebaseFirestore.getInstance().collection("users").add(user)
             .addOnSuccessListener {
@@ -57,17 +78,10 @@ class LoginScreenViewModel: ViewModel() {
                 Log.d("FBSTORE", "onCreate: (Failure) $it, for ${currentUser.toString()}")
             }
 
-//        try {
-//            FirebaseFirestore.getInstance().collection("users")
-//                .add(user)
-//            Log.d("FBStore", "createUser: $user")
-//        } catch (e: java.lang.Exception) {
-//            Log.d("FBStore", "createUser: ${e.message}")
-//        }
 
     }
 
-    fun signInWithUserAndPassword(email: String, password: String, callback: () -> Unit)
+    fun signInWithUserAndPassword(email: String, password: String,  callback: () -> Unit)
             = viewModelScope.launch {
         try {
             auth.signInWithEmailAndPassword(email, password)

@@ -49,7 +49,7 @@ fun KmCarLoginScreen (
             )
             Spacer(modifier = Modifier.height(100.dp))
             if (showLoginForm.value)
-                UserForm(loading = false, isCreateAccount = false) { email, password ->
+                UserForm(loading = false, isCreateAccount = false) { email, password->
                     viewModel.signInWithUserAndPassword(email = email, password = password)
                     {
                         navController.navigate(KmCarNavScreens.HomeScreen.name)

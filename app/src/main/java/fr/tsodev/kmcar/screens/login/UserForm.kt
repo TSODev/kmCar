@@ -3,19 +3,14 @@ package fr.tsodev.kmcar.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.rounded.Email
 import androidx.compose.material.icons.rounded.Lock
-import androidx.compose.material3.Button
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -27,10 +22,13 @@ import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.focus.focusRequester
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import fr.tsodev.kmcar.R
 
 @SuppressLint("RememberReturnType")
@@ -49,11 +47,14 @@ fun UserForm (
         mutableStateOf("")
     }
 
+    val car = rememberSaveable { mutableStateOf("")}
+
     val passwordVisibility = rememberSaveable {
         mutableStateOf(false)
     }
 
     val passwordFocusRequest = FocusRequester.Default
+    val carFocusRequest = FocusRequester.Default
     val keyboardController = LocalSoftwareKeyboardController.current
     val valid = remember(email.value, password.value) {
         email.value.trim().isNotEmpty() && password.value.trim().isNotEmpty()
@@ -61,7 +62,7 @@ fun UserForm (
 
     val modifier = Modifier
         .padding(20.dp)
-        .height(300.dp)
+        .height(400.dp)
         .background(MaterialTheme.colorScheme.background)
         .verticalScroll(rememberScrollState())
 
@@ -71,15 +72,16 @@ fun UserForm (
                 if (isCreateAccount) Text(text = stringResource(id = R.string.create_account),
                 modifier = Modifier.padding(6.dp)) else Text("")
 
-                InputField(valueState = email, labelId = "Email", enabled = !loading, isSingleLine = true,
+                InputField(valueState = email, labelId = "Adresse Email", enabled = !loading, isSingleLine = true,
                 imageVector = Icons.Rounded.Email, keyboardType= KeyboardType.Email,
                 onAction = KeyboardActions {
                     passwordFocusRequest.requestFocus()
-                })
+                },
+                visible = true)
 
                 PasswordInputField(modifier = Modifier.focusRequester(passwordFocusRequest),
                     valueState = password,
-                    labelId = "Password",
+                    labelId = "Mot de Passe",
                     enabled = !loading,
                     isSingleLine = true,
                     imageVector = Icons.Rounded.Lock,
@@ -87,7 +89,17 @@ fun UserForm (
                     onAction = KeyboardActions{
                         if (!valid) return@KeyboardActions
                         onDone(email.value.trim(), password.value.trim())
+//                            carFocusRequest.requestFocus()
                     })
+
+//        InputField(modifier = Modifier.focusRequester(carFocusRequest),
+//            valueState = car, labelId = "Plaque d'immatriculation", enabled = !loading, isSingleLine = true,
+//            imageVector =  ImageVector.vectorResource(R.drawable.ic_local_shipping), keyboardType= KeyboardType.Ascii,
+//            onAction = KeyboardActions {
+//                if (!valid) return@KeyboardActions
+//                onDone(email.value.trim(), password.value.trim(), car.value.trim().uppercase())
+//            },
+//            visible = isCreateAccount)
 
             SubmitButton(
                 textId = if (isCreateAccount) "Créer un compte" else "Login",

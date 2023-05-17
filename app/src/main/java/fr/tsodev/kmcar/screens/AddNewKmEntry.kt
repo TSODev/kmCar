@@ -11,18 +11,23 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
@@ -30,9 +35,11 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,7 +60,8 @@ import java.util.Date
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @Composable
-fun AddNewKmEntry(navController: NavController) {
+fun AddNewKmEntry(navController: NavController,
+                    carId: String) {
 
     val TAG = "ADDENTRY"
 
@@ -71,25 +79,34 @@ fun AddNewKmEntry(navController: NavController) {
 
     Scaffold(
         topBar = {
-            TopAppBar(
+            CenterAlignedTopAppBar(
                 title = {
                     Text(
                         text = stringResource(id = R.string.app_name),
                         maxLines = 1,
-                        overflow = TextOverflow.Ellipsis
+                        overflow = TextOverflow.Ellipsis,
+                        color = Color.White,
+                        style = MaterialTheme.typography.titleLarge,
+                        fontWeight = FontWeight.Bold
                     )
                 },
                 navigationIcon = {
                     IconButton(onClick = {
+                        /* TODO Notification Button */
                         navController.popBackStack()
                     }) {
                         Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Localized description"
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Localized description",
+                            tint = Color.White,
+                            modifier = Modifier.size(40.dp)
                         )
                     }
                 },
-
+                colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                    containerColor = Color(0xFF3F51B5),
+                    titleContentColor = MaterialTheme.colorScheme.onSecondary
+                )
                 )
         }
     ) {
@@ -141,14 +158,16 @@ fun AddNewKmEntry(navController: NavController) {
                             if (!validEntryState) return@KeyboardActions
                             // TODO New Entry process
                             keyboardController?.hide()
-                        }
+                        },
+                        visible = true
                     )
                 }
-                DrawDottedLine(pathEffect = Constants.DOT_LINE)
-                Button(onClick = {
-                    dbAddRecord(newKmEntryState, validEntryState, navController, context, TAG)
-
-                }) {
+ //               DrawDottedLine(pathEffect = Constants.DOT_LINE)
+                Button(
+                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F51B5)),
+                    onClick = {
+                                dbAddRecord(carId, newKmEntryState, validEntryState, navController, context, TAG)
+                    }) {
                     Text(text = "Enregistrer")
                 }
             }
@@ -158,6 +177,7 @@ fun AddNewKmEntry(navController: NavController) {
 
 
 private fun dbAddRecord(
+    carId: String,
     newKmEntryState: MutableState<String>,
     validEntryState: Boolean,
     navController: NavController,
@@ -168,6 +188,7 @@ private fun dbAddRecord(
 
     val kmEntry: MutableMap<String, Any> = KmRec(
         userId = Firebase.auth.uid.toString(),
+        carId = carId,
         date = Date.from(Instant.now()),
         total = newKmEntryState.value
     ).toMap()
@@ -178,7 +199,7 @@ private fun dbAddRecord(
         .addOnSuccessListener {
             if (validEntryState) {
  //               navController.popBackStack()
-                navController.navigate(KmCarNavScreens.HomeScreen.name)
+                navController.navigate(KmCarNavScreens.KmCarScreen.name + "/${carId}")
             } else {
                 Toast.makeText(context, "Veuillez entrer une valeur !", Toast.LENGTH_SHORT)
                     .show()

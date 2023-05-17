@@ -7,4 +7,12 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Carolina_Blue">#FF87bcde</color>
+    <color name="Chinese_Violet">#FF805e73</color>
+    <color name="Davys_Gray">#FF4e4d5c</color>
+    <color name="Charcoal">#FF2d4654</color>
+    <color name="Charcoal_Dark">#FF243b4a</color>
+    <color name="AppColor">#FF3F51B5</color>
 </resources>
+
+

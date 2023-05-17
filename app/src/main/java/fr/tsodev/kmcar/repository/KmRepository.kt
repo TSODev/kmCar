@@ -31,4 +31,5 @@ class KmRepository(private val firestore: FirebaseFirestore) {
     fun deleteDocument(documentPath: String): Task<Void> {
         return firestore.document(documentPath).delete()
     }
+
 }

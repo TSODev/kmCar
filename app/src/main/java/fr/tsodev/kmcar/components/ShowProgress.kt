@@ -29,8 +29,8 @@ fun ShowProgress(percent : Int = 12) {
     // score is percentage from 0 to 100
 
     val gradient = Brush.linearGradient(colors = listOf(
-        Color(0xFF59826A),
-        Color(0xFF59826A)
+        Color(0xFF3F51B5),
+        Color(0xFF3F51B5)
     ))
 
     val progressFactor by remember(percent) {
@@ -39,13 +39,13 @@ fun ShowProgress(percent : Int = 12) {
     Row(modifier = Modifier
         .padding(3.dp)
         .fillMaxWidth()
-        .height(35.dp)
+        .height(20.dp)
         .border(
-            width = 4.dp,
+            width = 2.dp,
             brush = Brush.linearGradient(
                 colors = listOf(
-                    Color(0xFF6E6E6E),
-                    Color(0xFF6E6E6E)
+                    Color(0xFFA3A3A3),
+                    Color(0xFFA3A3A3)
                 )
             ),
             shape = RoundedCornerShape(34.dp)

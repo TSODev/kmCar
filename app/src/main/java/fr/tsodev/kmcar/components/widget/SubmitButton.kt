@@ -13,8 +13,8 @@ import androidx.compose.ui.unit.dp
 
 @Composable
 fun SubmitButton(textId: String,
-                 loading: Boolean,
-                 validInputs: Boolean,
+                 loading: Boolean = false,
+                 validInputs: Boolean = true,
                  onClick: () -> Unit) {
 
     Button(onClick = onClick,
