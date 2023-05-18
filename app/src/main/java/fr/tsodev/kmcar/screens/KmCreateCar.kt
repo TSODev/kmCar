@@ -101,7 +101,7 @@ fun KmCreateCar( navController: NavController) {
                         text = stringResource(id = R.string.app_name),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -114,7 +114,7 @@ fun KmCreateCar( navController: NavController) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Localized description",
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.size(40.dp)
                         )
                     }
@@ -122,20 +122,20 @@ fun KmCreateCar( navController: NavController) {
                 actions = {
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF3F51B5),
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
         },
-        bottomBar = {
-            BottomAppBar() {
-
-            }
-        },
+//        bottomBar = {
+//            BottomAppBar() {
+//
+//            }
+//        },
         content = { innerPadding ->
             Surface(modifier = Modifier
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.surface)
                 .fillMaxSize()
             ) {
                 Card(
@@ -146,7 +146,7 @@ fun KmCreateCar( navController: NavController) {
                     shape = RoundedCornerShape(10.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 ) {
                     Column(
                         modifier = Modifier
@@ -155,16 +155,16 @@ fun KmCreateCar( navController: NavController) {
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-                        Card(
-                            modifier = Modifier
-                                .padding(5.dp)
-                                .fillMaxWidth(),
-//                                .height(360.dp),
-//                            shape = RoundedCornerShape(10.dp),
-//                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-//                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                            colors = CardDefaults.cardColors(containerColor = Color.White),
-                        ) {
+//                        Card(
+//                            modifier = Modifier
+//                                .padding(5.dp)
+//                                .fillMaxWidth(),
+////                                .height(360.dp),
+////                            shape = RoundedCornerShape(10.dp),
+////                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+////                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+//                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+//                        ) {
                             Column(
                                 modifier = Modifier
                                     .padding(12.dp)
@@ -226,7 +226,7 @@ fun KmCreateCar( navController: NavController) {
                                         checked = isLocation.value,
                                         onCheckedChange = {isLocation.value = it},
                                         colors = SwitchDefaults.colors(
-                                            checkedTrackColor = Color(0xFF3F51B5),
+                                            checkedTrackColor = MaterialTheme.colorScheme.primary,
                                         ),
                                         thumbContent = icon
                                     )
@@ -263,10 +263,10 @@ fun KmCreateCar( navController: NavController) {
                                 )
                                 Spacer(modifier = Modifier.height(80.dp))
                                 Button(
-                                    modifier = Modifier.fillMaxWidth(),
+                                    modifier = Modifier.width(300.dp),
                                     enabled = true,
                                     shape = RoundedCornerShape(corner = CornerSize(2.dp)),
-                                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F51B5)),
+                           //         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                                     onClick = {
                                         val vehicule = Car(
                                             UUID.randomUUID().toString(),
@@ -296,8 +296,6 @@ fun KmCreateCar( navController: NavController) {
                             }
                         }
 
-
-                    }
                 }
             }
         }

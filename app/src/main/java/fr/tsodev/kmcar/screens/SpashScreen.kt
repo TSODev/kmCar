@@ -76,11 +76,11 @@ fun SplashScreen(navController : NavController) {
                 {
                     Text(text = "KmCar",
                         style = MaterialTheme.typography.titleLarge,
-                        color = Color.Red)
-                    KmLogo(imageId = R.drawable.car)
+                        color = MaterialTheme.colorScheme.primary)
+ //                   KmLogo(imageId = R.drawable.car)
                     Spacer( modifier = Modifier.height(16.dp))
                     Text(text = " Suivi de votre LOA", style = MaterialTheme.typography.bodyMedium,
-                            color = Color.LightGray)
+                            color = MaterialTheme.colorScheme.primary)
             }
 
     }

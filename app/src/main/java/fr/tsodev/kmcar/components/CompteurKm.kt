@@ -1,5 +1,6 @@
 package fr.tsodev.kmcar.components
 
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -17,8 +18,8 @@ fun CompteurKm( value : String) {
     Text(text = "$displayedKM Kms",
         //
         style = TextStyle(
-            color = Color.Black,
-            fontSize = 38.sp,
+            color = MaterialTheme.colorScheme.secondary,
+            fontSize = 30.sp,
             fontWeight = FontWeight.ExtraBold
         ),
         textAlign = TextAlign.End

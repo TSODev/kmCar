@@ -26,7 +26,6 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -40,6 +39,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -48,13 +48,11 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import fr.tsodev.kmcar.R
-import fr.tsodev.kmcar.components.DrawDottedLine
 import fr.tsodev.kmcar.components.InputField
 import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import fr.tsodev.kmcar.repository.KmRepository
-import fr.tsodev.kmcar.utils.Constants
-import fr.tsodev.kmcar.utils.DateFormater.Companion.DateToString
+import fr.tsodev.kmcar.utils.DateUtils.Companion.dateToString
 import java.time.Instant
 import java.util.Date
 
@@ -85,7 +83,7 @@ fun AddNewKmEntry(navController: NavController,
                         text = stringResource(id = R.string.app_name),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -98,13 +96,13 @@ fun AddNewKmEntry(navController: NavController,
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Localized description",
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.size(40.dp)
                         )
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF3F51B5),
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSecondary
                 )
                 )
@@ -114,14 +112,18 @@ fun AddNewKmEntry(navController: NavController,
             modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth()
-                .padding(it)
-        ) {
+                .padding(it),
+            color = MaterialTheme.colorScheme.surface
+        )
+        {
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.Center
+                verticalArrangement = Arrangement.Top
             ) {
 
                 val context = LocalContext.current
+                
+                Spacer(modifier = Modifier.height(50.dp))
 
                 Text(text = "Ajouter un nouvel enregistrement")
                 Spacer(modifier = Modifier.height(20.dp))
@@ -134,7 +136,7 @@ fun AddNewKmEntry(navController: NavController,
                     verticalAlignment = Alignment.CenterVertically
                 ) {
                     OutlinedTextField(
-                        value = DateToString(Date.from(Instant.now())),
+                        value = dateToString(Date.from(Instant.now())),
                         onValueChange = {},
                         label = { Text(text = "Date actuelle") },
                         readOnly = true
@@ -152,6 +154,7 @@ fun AddNewKmEntry(navController: NavController,
                         valueState = newKmEntryState,
                         labelId = "Nouveau Kilometrage",
                         keyboardType = KeyboardType.Number,
+                        imeAction = ImeAction.Go,
                         enabled = true,
                         isSingleLine = true,
                         onAction = KeyboardActions {
@@ -164,7 +167,9 @@ fun AddNewKmEntry(navController: NavController,
                 }
  //               DrawDottedLine(pathEffect = Constants.DOT_LINE)
                 Button(
-                    colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F51B5)),
+//                    colors = ButtonDefaults.buttonColors(
+//                        containerColor = MaterialTheme.colorScheme.secondaryContainer
+//                    ),
                     onClick = {
                                 dbAddRecord(carId, newKmEntryState, validEntryState, navController, context, TAG)
                     }) {

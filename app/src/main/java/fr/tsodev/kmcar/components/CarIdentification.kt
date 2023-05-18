@@ -53,43 +53,24 @@ fun CarIdentification(
         .padding(horizontal = 30.dp, vertical = 15.dp)
         .fillMaxWidth(),
         shape = RoundedCornerShape(CornerSize(6.dp)) ,
-        border = BorderStroke(4.dp, Color(0xFF3F51B5)),
-        colors = CardDefaults.cardColors(containerColor = Color.White)
+        border = BorderStroke(4.dp, MaterialTheme.colorScheme.primary),
+        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
         ) {
-            Row(modifier = Modifier
+        Row(
+            modifier = Modifier
                 .padding(10.dp)
                 .fillMaxWidth(),
-                horizontalArrangement = Arrangement.Center,
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Text(text = car.plaque,
-                    modifier = Modifier.padding(horizontal = 45.dp, vertical = 8.dp),
-                     style = MaterialTheme.typography.displayLarge,
-                     fontWeight = FontWeight.Black
-                )
- //               Spacer(modifier = Modifier.width(30.dp))
-//                FilledTonalIconToggleButton(
-//                    checked = checked.value,
-//                    onCheckedChange = { checked.value = it },
-//                    modifier = Modifier.size(60.dp),
-//                    colors = IconButtonDefaults.filledIconToggleButtonColors(
-//                        containerColor = Color.Transparent,
-//                        contentColor = Color(0xFF3F51B5)
-//                    )
-//                ) {
-//                    if (checked.value) {
-//                        Icon(Icons.Filled.CheckCircle, "Lock Icon",
-//                                modifier = Modifier.size(60.dp),
-// //                               tint = Color(0xFF3F51B5)
-//                        )
-//                    } else {
-//                        Icon(imageVector = Icons.Outlined.RadioButtonUnchecked, contentDescription = "Lock Icon",
-//                            modifier = Modifier.size(60.dp),
-// //                           tint = Color(0xFF3F51B5)
-//                        )
-//                    }
-//                }
-            }
+            horizontalArrangement = Arrangement.Center,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Text(
+                text = car.plaque,
+                modifier = Modifier.padding(horizontal = 45.dp, vertical = 8.dp),
+                color = MaterialTheme.colorScheme.onPrimaryContainer,
+                style = MaterialTheme.typography.titleLarge,
+                fontWeight = FontWeight.Black
+            )
+        }
 
     }
 }

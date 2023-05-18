@@ -42,7 +42,7 @@ fun InputField (
             onValueChange = {valueState.value = it},
             label = { Text(text = labelId)},
             singleLine = isSingleLine,
-            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
+            textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onPrimaryContainer),
             modifier = modifier.padding(bottom = 10.dp, start = 10.dp, end = 10.dp),
             leadingIcon = { Icon(imageVector = imageVector, contentDescription = "Icon")},
             enabled = enabled,

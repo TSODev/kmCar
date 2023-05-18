@@ -1,11 +1,8 @@
 package fr.tsodev.kmcar.model
 
 
-import fr.tsodev.kmcar.utils.Constants.INITIAL_KM_RECORD
-import java.io.Serializable
 import java.time.Instant
 import java.util.Date
-import java.util.UUID
 
 
 data class KmRec(

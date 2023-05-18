@@ -66,11 +66,12 @@ fun DatePickerButton(
 
             enabled = enabled,
             shape = RoundedCornerShape(4.dp),
-            colors = ButtonDefaults.buttonColors(containerColor = Color.White),
+            colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.surface),
             border = BorderStroke(1.dp, Color.DarkGray)
             ) {
             Row(
-                modifier = Modifier.padding(1.dp)
+                modifier = Modifier
+                    .padding(1.dp)
                     .fillMaxWidth(),
                 horizontalArrangement = Arrangement.Start
             ) {
@@ -82,7 +83,7 @@ fun DatePickerButton(
                         text = labelId,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onBackground
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         ),
                     )
                 } else {
@@ -90,7 +91,7 @@ fun DatePickerButton(
                         text = valueState.value,
                         style = TextStyle(
                             fontSize = 16.sp,
-                            color = MaterialTheme.colorScheme.onBackground
+                            color = MaterialTheme.colorScheme.onPrimaryContainer
                         )
                     )
                 }
@@ -100,6 +101,9 @@ fun DatePickerButton(
             val datePickerState = rememberDatePickerState()
             val confirmEnabled = derivedStateOf { datePickerState.selectedDateMillis != null }
             DatePickerDialog(
+                colors = DatePickerDefaults.colors(
+                    containerColor = MaterialTheme.colorScheme.surfaceVariant
+                ),
                 onDismissRequest = {
                     // Dismiss the dialog when the user clicks outside the dialog or on the back
                     // button. If you want to disable that functionality, simply use an empty

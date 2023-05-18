@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults.buttonColors
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -29,8 +30,8 @@ fun ShowProgress(percent : Int = 12) {
     // score is percentage from 0 to 100
 
     val gradient = Brush.linearGradient(colors = listOf(
-        Color(0xFF3F51B5),
-        Color(0xFF3F51B5)
+        MaterialTheme.colorScheme.secondary,
+        MaterialTheme.colorScheme.secondary
     ))
 
     val progressFactor by remember(percent) {
@@ -44,8 +45,8 @@ fun ShowProgress(percent : Int = 12) {
             width = 2.dp,
             brush = Brush.linearGradient(
                 colors = listOf(
-                    Color(0xFFA3A3A3),
-                    Color(0xFFA3A3A3)
+                    MaterialTheme.colorScheme.secondaryContainer,
+                    MaterialTheme.colorScheme.secondaryContainer
                 )
             ),
             shape = RoundedCornerShape(34.dp)

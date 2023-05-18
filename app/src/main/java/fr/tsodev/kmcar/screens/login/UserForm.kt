@@ -3,8 +3,10 @@ package fr.tsodev.kmcar.components
 import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.verticalScroll
@@ -62,18 +64,28 @@ fun UserForm (
 
     val modifier = Modifier
         .padding(20.dp)
-        .height(400.dp)
+        .height(500.dp)
         .background(MaterialTheme.colorScheme.background)
         .verticalScroll(rememberScrollState())
 
     Column(modifier = modifier,
             horizontalAlignment = Alignment.CenterHorizontally) {
 
-                if (isCreateAccount) Text(text = stringResource(id = R.string.create_account),
-                modifier = Modifier.padding(6.dp)) else Text("")
+                if (isCreateAccount) 
+                    Text(
+                        text = stringResource(id = R.string.create_account),
+                        modifier = Modifier.padding(6.dp)
+                    ) else 
+                        Text("")
 
-                InputField(valueState = email, labelId = "Adresse Email", enabled = !loading, isSingleLine = true,
-                imageVector = Icons.Rounded.Email, keyboardType= KeyboardType.Email,
+                Spacer(modifier = Modifier.height(80.dp))
+                InputField(
+                    valueState = email, 
+                    labelId = "Adresse Email", 
+                    enabled = !loading, 
+                    isSingleLine = true,
+                imageVector = Icons.Rounded.Email, 
+                    keyboardType= KeyboardType.Email,
                 onAction = KeyboardActions {
                     passwordFocusRequest.requestFocus()
                 },
@@ -92,15 +104,8 @@ fun UserForm (
 //                            carFocusRequest.requestFocus()
                     })
 
-//        InputField(modifier = Modifier.focusRequester(carFocusRequest),
-//            valueState = car, labelId = "Plaque d'immatriculation", enabled = !loading, isSingleLine = true,
-//            imageVector =  ImageVector.vectorResource(R.drawable.ic_local_shipping), keyboardType= KeyboardType.Ascii,
-//            onAction = KeyboardActions {
-//                if (!valid) return@KeyboardActions
-//                onDone(email.value.trim(), password.value.trim(), car.value.trim().uppercase())
-//            },
-//            visible = isCreateAccount)
-
+            Spacer(modifier = Modifier.height(160.dp))
+        
             SubmitButton(
                 textId = if (isCreateAccount) "Créer un compte" else "Login",
                 loading = loading,

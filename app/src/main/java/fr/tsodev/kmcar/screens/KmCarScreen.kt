@@ -101,7 +101,7 @@ fun KmCarScreen(navController: NavController,
                         text = stringResource(id = R.string.app_name),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -116,7 +116,7 @@ fun KmCarScreen(navController: NavController,
                             modifier = Modifier.size(50.dp),
                             imageVector = Icons.Filled.MoreVert,
                             contentDescription = "More",
-                            tint = Color.White
+                            tint = MaterialTheme.colorScheme.secondary
                         )
                     }
                     DropdownMenu(
@@ -160,36 +160,36 @@ fun KmCarScreen(navController: NavController,
                     }
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF3F51B5),
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
         },
-        bottomBar = {
-            BottomAppBar() {
-
-            }
-        },
+//        bottomBar = {
+//            BottomAppBar() {
+//
+//            }
+//        },
 
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(modifier = Modifier.size(80.dp),
-                containerColor = Color(0xFF3F51B5),
+                containerColor = MaterialTheme.colorScheme.secondaryContainer,
                 shape = CircleShape,
                 onClick = {
                 navController.navigate(route = KmCarNavScreens.AddNewKmEntry.name + "/${currentCar.id}")
             }) {
                 Icon(imageVector = Icons.Filled.Add,
                     contentDescription = "Add",
-                    modifier = Modifier.size(50.dp),
-                    tint = Color.White
+                    modifier = Modifier.size(35.dp),
+                    tint = MaterialTheme.colorScheme.secondary
                 )
             }
         },
         content = { innerPadding ->
             Surface(modifier = Modifier
                 .padding(innerPadding)
-                .background(MaterialTheme.colorScheme.background)
+                .background(MaterialTheme.colorScheme.surface)
                 .fillMaxSize()
                 ) {
                 Card(modifier = Modifier
@@ -199,7 +199,7 @@ fun KmCarScreen(navController: NavController,
                     shape = RoundedCornerShape(20.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                    colors = CardDefaults.cardColors(containerColor = Color.White),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
                 ) {
                     if (loading.value) {
                         LoadingProgressBar()
@@ -209,7 +209,7 @@ fun KmCarScreen(navController: NavController,
                                 .padding(12.dp)
                                 .fillMaxSize(),
                             horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.SpaceEvenly
+                            verticalArrangement = Arrangement.Top
                         ) {
                             ShowCarInfos(currentCar, navController, viewModel)
                         }

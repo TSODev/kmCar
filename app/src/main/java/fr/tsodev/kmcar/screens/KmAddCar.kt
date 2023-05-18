@@ -64,7 +64,7 @@ fun KmAddCar(navController: NavController) {
                         text = stringResource(id = R.string.app_name),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis,
-                        color = Color.White,
+                        color = MaterialTheme.colorScheme.secondary,
                         style = MaterialTheme.typography.titleLarge,
                         fontWeight = FontWeight.Bold
                     )
@@ -77,7 +77,7 @@ fun KmAddCar(navController: NavController) {
                         Icon(
                             imageVector = Icons.Filled.ArrowBack,
                             contentDescription = "Localized description",
-                            tint = Color.White,
+                            tint = MaterialTheme.colorScheme.secondary,
                             modifier = Modifier.size(40.dp)
                         )
                     }
@@ -85,7 +85,7 @@ fun KmAddCar(navController: NavController) {
                 actions = {
                 },
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                    containerColor = Color(0xFF3F51B5),
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
@@ -139,7 +139,7 @@ fun KmAddCar(navController: NavController) {
                                 modifier = Modifier.size(width = 200.dp, height = 100.dp),
                                 enabled = true,
                                 shape = RoundedCornerShape(corner = CornerSize(2.dp)),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F51B5))
+                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                             )
                             {
                                 Text(text = "Créer un nouveau véhicule",

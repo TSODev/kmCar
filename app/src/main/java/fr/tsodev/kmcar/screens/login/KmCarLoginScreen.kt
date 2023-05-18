@@ -1,6 +1,5 @@
 package fr.tsodev.kmcar.screens.login
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -21,8 +20,6 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.google.firebase.firestore.auth.User
-import fr.tsodev.kmcar.components.KmLogo
 import fr.tsodev.kmcar.components.UserForm
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 
@@ -45,7 +42,7 @@ fun KmCarLoginScreen (
             Text(
                 text = "KmCar",
                 style = MaterialTheme.typography.titleLarge,
-                color = Color.Red
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(100.dp))
             if (showLoginForm.value)
@@ -62,7 +59,7 @@ fun KmCarLoginScreen (
                 }
             }
         }
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(100.dp))
         Row(
             modifier = Modifier.padding(15.dp),
             horizontalArrangement = Arrangement.Center,
