@@ -259,15 +259,20 @@ fun KmCarInfos(
 
                         ) {
                             OutlinedTextField(
-                                modifier = Modifier.width(300.dp),
+                                modifier = Modifier.width(280.dp),
                                 value = car.value.debut,
                                 onValueChange = {},
                                 label = { Text("Début") },
                                 readOnly = true // Set the text field to read-only
                             )
-                            Spacer(modifier = Modifier.width(50.dp))
+                        }
+                            Row(
+                                modifier = Modifier.fillMaxWidth(),
+                                horizontalArrangement = Arrangement.SpaceAround
+
+                            ) {
                             OutlinedTextField(
-                                modifier = Modifier.width(300.dp),
+                                modifier = Modifier.width(280.dp),
                                 value = car.value.fin,
                                 onValueChange = {},
                                 label = { Text("Fin") },

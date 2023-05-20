@@ -1,4 +1,4 @@
-package fr.tsodev.kmcar.data.firestone
+package fr.tsodev.kmcar.data.firestore
 
 data class DataOrException<T, Boolean, E: Exception>(
     var data: T? = null,

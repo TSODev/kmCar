@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import fr.tsodev.kmcar.data.firestone.DataOrException
+import fr.tsodev.kmcar.data.firestore.DataOrException
 import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.repository.FirestoreRepository
