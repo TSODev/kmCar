@@ -2,12 +2,11 @@ package fr.tsodev.kmcar.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -16,10 +15,8 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.DirectionsCar
@@ -27,7 +24,6 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.ImportExport
 import androidx.compose.material.icons.outlined.Logout
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -39,9 +35,7 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
 import androidx.compose.material3.ListItemDefaults
-import androidx.compose.material3.ListItemDefaults.containerColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -52,11 +46,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -131,7 +122,8 @@ fun KmListOfCars(
                                     Icons.Outlined.ImportExport,
                                     contentDescription = null
                                 )
-                            }
+                            },
+                            enabled = true,
                         )
                         DropdownMenuItem(
                             text = { Text("Ajouter un véhicule") },
@@ -203,18 +195,20 @@ fun KmListOfCars(
                 ) {
                     Column(
                         modifier = Modifier
-                            .padding(vertical = 5.dp, horizontal = 15.dp)
+                            .padding(vertical = 50.dp, horizontal = 15.dp)
                             .fillMaxSize(),
                         horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceEvenly
+                        verticalArrangement = Arrangement.Top
                     ) {
+
                     Text(
                         modifier = Modifier.padding(vertical = 15.dp),
                         text = "Choisir un véhicule",
                         fontWeight = FontWeight.Bold,
                         style = MaterialTheme.typography.titleLarge,
                     )
-                    Divider()
+                        Spacer(modifier = Modifier.height(50.dp))
+                        Divider(color = MaterialTheme.colorScheme.onSurface)
                     LazyColumn {
                         items(items = listOfCarsForCurrentUser!!) { car ->
                             Row(
@@ -238,7 +232,7 @@ fun KmListOfCars(
                                     },
                                     supportingContent = {
                                         Text(
-                                            text = car.fabriquant + " " + car.modele,
+                                            text = car.fabricant + " " + car.modele,
                                             fontWeight = FontWeight.Normal,
                                             fontSize = 14.sp,
                                         )
@@ -258,14 +252,14 @@ fun KmListOfCars(
 
 
                                 )
-                                Box(
-                                    modifier = Modifier.size(200.dp)
-                                ) {
-                                    QrCodeComposable(data = car.id)
-                                }
+//                                Box(
+//                                    modifier = Modifier.size(200.dp)
+//                                ) {
+//                                    QrCodeComposable(data = car.id)
+//                                }
 
                             }
-                            Divider(color = Color(0xFF3F51B5))
+                            Divider(color = MaterialTheme.colorScheme.onSurface)
                         }
 
 

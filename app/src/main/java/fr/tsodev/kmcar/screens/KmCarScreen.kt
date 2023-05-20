@@ -15,6 +15,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.ImportExport
@@ -106,6 +107,19 @@ fun KmCarScreen(navController: NavController,
                         fontWeight = FontWeight.Bold
                     )
                 },
+                navigationIcon = {
+                    IconButton(onClick = {
+                        /* TODO Notification Button */
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Filled.ArrowBack,
+                            contentDescription = "Localized description",
+                            tint = MaterialTheme.colorScheme.secondary,
+                            modifier = Modifier.size(40.dp)
+                        )
+                    }
+                },
                 actions = {
                     IconButton(
                         onClick = {
@@ -131,7 +145,8 @@ fun KmCarScreen(navController: NavController,
                                     Icons.Outlined.ImportExport,
                                     contentDescription = null
                                 )
-                            }
+                            },
+                            enabled = true
                         )
                         DropdownMenuItem(
                             text = { Text("Ajouter un véhicule") },
@@ -165,12 +180,6 @@ fun KmCarScreen(navController: NavController,
                 )
             )
         },
-//        bottomBar = {
-//            BottomAppBar() {
-//
-//            }
-//        },
-
         floatingActionButtonPosition = FabPosition.End,
         floatingActionButton = {
             FloatingActionButton(modifier = Modifier.size(80.dp),

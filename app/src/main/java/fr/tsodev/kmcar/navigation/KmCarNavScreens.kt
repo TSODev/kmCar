@@ -1,8 +1,5 @@
 package fr.tsodev.kmcar.navigation
 
-import android.util.Log
-import fr.tsodev.kmcar.screens.login.KmCarLoginScreen
-
 enum class KmCarNavScreens {
     SplashScreen,
     KmCarLoginScreen,
@@ -14,7 +11,8 @@ enum class KmCarNavScreens {
     KmListOfCars,
     KmAddCar,
     KmImportCar,
-    KmCreateCar;
+    KmCreateCar,
+    KmCarInfos;
     companion object {
         fun fromRoute(route: String?) : KmCarNavScreens
          = when (route?.substringBefore("/")) {
@@ -29,6 +27,7 @@ enum class KmCarNavScreens {
             KmAddCar.name -> KmAddCar
             KmImportCar.name -> KmImportCar
             KmCreateCar.name -> KmCreateCar
+            KmCarInfos.name -> KmCarInfos
             null -> HomeScreen
             else -> throw IllegalArgumentException("Route $route is not recognized")
          }

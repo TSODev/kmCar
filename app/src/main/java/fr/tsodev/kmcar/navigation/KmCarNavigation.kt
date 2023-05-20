@@ -13,6 +13,7 @@ import fr.tsodev.kmcar.screens.settings.KmSettings
 import androidx.hilt.navigation.compose.hiltViewModel
 import fr.tsodev.kmcar.components.KmListOfCars
 import fr.tsodev.kmcar.screens.KmAddCar
+import fr.tsodev.kmcar.screens.KmCarInfos
 import fr.tsodev.kmcar.screens.KmCarScreen
 import fr.tsodev.kmcar.screens.KmCreateCar
 import fr.tsodev.kmcar.screens.KmImportCar
@@ -84,6 +85,13 @@ fun KmCarNavigation () {
         composable(KmCarNavScreens.KmListOfCars.name) {
             val homeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
             KmListOfCars(navController = navController, viewModel = homeScreenViewModel)
+        }
+
+        composable(KmCarNavScreens.KmCarInfos.name + "/{carId}") {navBackStackEntry ->
+            val carId = navBackStackEntry.arguments?.getString("carId")
+            carId?.let {
+                KmCarInfos(navController = navController, it)
+            }
         }
     }
 

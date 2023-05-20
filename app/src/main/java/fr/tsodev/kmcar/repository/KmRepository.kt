@@ -1,11 +1,15 @@
 package fr.tsodev.kmcar.repository
 
+import android.util.Log
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentReference
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
 import com.google.firebase.firestore.QuerySnapshot
+import fr.tsodev.kmcar.model.Car
+import fr.tsodev.kmcar.utils.Constants
 
 class KmRepository(private val firestore: FirebaseFirestore) {
 
@@ -20,6 +24,13 @@ class KmRepository(private val firestore: FirebaseFirestore) {
         return query.get()
     }
 
+    fun getDocumentsForCar(carId: String) : Task<QuerySnapshot> {
+        val collectionRef: CollectionReference = firestore.collection("cars")
+        val query: Query = collectionRef.whereEqualTo("id", carId)
+        //       .whereEqualTo("userId", userId)
+        return query.get()
+    }
+
     fun addDocument(collectionPath: String, data: Map<String, Any>): Task<DocumentReference> {
         return firestore.collection(collectionPath).add(data)
     }
@@ -30,6 +41,45 @@ class KmRepository(private val firestore: FirebaseFirestore) {
 
     fun deleteDocument(documentPath: String): Task<Void> {
         return firestore.document(documentPath).delete()
+    }
+
+    fun deleteCar(carId: String): Task<Unit>{
+        val collectionCarRef: CollectionReference = firestore.collection("cars")
+        val collectionKmEntriesRef: CollectionReference = firestore.collection("KmEntries")
+        val queryKm: Query = collectionKmEntriesRef.whereEqualTo("carId", carId)
+        val queryCar: Query = collectionCarRef.whereEqualTo("id", carId)
+
+        val resultKm = queryKm.get().continueWith { querySnapshot ->
+            querySnapshot.result.forEach { docKm ->
+                docKm.reference.delete()
+            }
+        }
+
+        val resultCar = queryCar.get().continueWith { querySnapshot ->
+            querySnapshot.result.forEach { docCar ->
+                docCar.reference.delete()
+            }
+        }
+        return resultCar
+    }
+
+    fun importCar(carId: String): Task<Unit> {
+        var car: Car = Constants.NO_CAR_FOUND
+        val collectionCarRef: CollectionReference = firestore.collection("cars")
+        val queryCar: Query = collectionCarRef.whereEqualTo("id", carId)
+
+        val resultCar = queryCar.get()
+            .continueWith() { querySnapshot ->
+                querySnapshot.result.forEach() { docCar ->
+                    car = docCar.toObject(Car::class.java)!!
+                    val currentUser = FirebaseAuth.getInstance().uid
+                    if (currentUser != null) {
+                        car.userId = currentUser
+                    }
+                    addDocument("cars", car.toMap())
+                }
+            }
+        return resultCar
     }
 
 }

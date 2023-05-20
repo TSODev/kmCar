@@ -5,9 +5,9 @@ import java.util.Date
 
 data class Car(
     val id: String,
-    val userId: String,
+    var userId: String,
     val plaque: String,
-    val fabriquant : String,
+    val fabricant : String,
     val modele: String,
     val location: Boolean,
     val limite: String,
@@ -21,7 +21,7 @@ data class Car(
             "id" to this.id,
             "userId" to this.userId,
             "plaque" to this.plaque,
-            "fabriquant" to this.fabriquant,
+            "fabricant" to this.fabricant,
             "modele" to this.modele,
             "location" to this.location,
             "limite" to this.limite,

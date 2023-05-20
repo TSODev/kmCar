@@ -42,7 +42,7 @@ fun ShowCarInfos(
         progress.value =
             ceil((totalKm.value.toDouble() / car.limite.toDouble()) * 100).toInt()
 
-        CarIdentification(car = car)
+        CarIdentification(navController = navController, car = car)
         ShowProgress(percent = progress.value.toInt())
         Spacer(modifier = Modifier.height(20.dp))
         ShowTotalKm(

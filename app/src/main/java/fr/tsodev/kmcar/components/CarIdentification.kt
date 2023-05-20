@@ -40,11 +40,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavController
 import fr.tsodev.kmcar.model.Car
+import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import org.checkerframework.checker.units.qual.A
 
 @Composable
 fun CarIdentification(
+    navController: NavController,
     car: Car,
     ) {
 
@@ -65,7 +68,10 @@ fun CarIdentification(
         ) {
             Text(
                 text = car.plaque,
-                modifier = Modifier.padding(horizontal = 45.dp, vertical = 8.dp),
+                modifier = Modifier.padding(horizontal = 45.dp, vertical = 8.dp)
+                    .clickable {
+                        navController.navigate(KmCarNavScreens.KmCarInfos.name + "/${car.id}")
+                    },
                 color = MaterialTheme.colorScheme.onPrimaryContainer,
                 style = MaterialTheme.typography.titleLarge,
                 fontWeight = FontWeight.Black
