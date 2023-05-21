@@ -27,10 +27,10 @@ fun SubmitButton(textId: String,
             .width(300.dp),
         enabled = !loading && validInputs,
         shape = CircleShape,
-        colors = ButtonDefaults.buttonColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer,
-            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-        )
+//        colors = ButtonDefaults.buttonColors(
+//            containerColor = MaterialTheme.colorScheme.primaryContainer,
+//            contentColor = MaterialTheme.colorScheme.onPrimaryContainer
+//        )
     ){
         if (loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
         else Text(text = textId, modifier = Modifier.padding(5.dp))

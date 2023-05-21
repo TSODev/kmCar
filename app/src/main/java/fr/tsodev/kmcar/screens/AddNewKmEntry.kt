@@ -43,16 +43,22 @@ import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import fr.tsodev.kmcar.R
 import fr.tsodev.kmcar.components.InputField
+import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import fr.tsodev.kmcar.repository.KmRepository
+import fr.tsodev.kmcar.screens.home.HomeScreenViewModel
+import fr.tsodev.kmcar.utils.Constants
 import fr.tsodev.kmcar.utils.DateUtils.Companion.dateToString
+import fr.tsodev.kmcar.utils.validation
 import java.time.Instant
 import java.util.Date
 
@@ -63,17 +69,26 @@ fun AddNewKmEntry(navController: NavController,
 
     val TAG = "ADDENTRY"
 
-    val newKmEntryState = remember {
-        mutableStateOf("")
-    }
+    val viewModel = hiltViewModel<HomeScreenViewModel>()
 
+    val newKmEntryState = remember { mutableStateOf("0") }
     val validEntryState = remember(newKmEntryState.value) {
         newKmEntryState.value.trim().isNotEmpty()
     }
-
     val keyboardController = LocalSoftwareKeyboardController.current
+    var listOfEntries = emptyList<KmRec>()
+    val totalKm = remember { mutableStateOf("0") }
 
-  //  val kmRecordViewModel by viewModels(KMRecordViewModel)
+    if (!viewModel.data.value.data.isNullOrEmpty()) {
+        listOfEntries = viewModel.data.value.data!!.toList()
+            .filter { kmRec -> kmRec.carId == carId }
+            .sortedBy { it.date }
+        if (!listOfEntries.isNullOrEmpty()) {
+            totalKm.value = listOfEntries.last().total
+        } else {
+            totalKm.value = "0"
+        }
+    }
 
     Scaffold(
         topBar = {
@@ -162,7 +177,8 @@ fun AddNewKmEntry(navController: NavController,
                             // TODO New Entry process
                             keyboardController?.hide()
                         },
-                        visible = true
+                        visible = true,
+                        isValid = {validation.isAcceptableKmEntry(newKmEntryState.value + "/${totalKm.value}")}
                     )
                 }
  //               DrawDottedLine(pathEffect = Constants.DOT_LINE)
@@ -170,6 +186,7 @@ fun AddNewKmEntry(navController: NavController,
 //                    colors = ButtonDefaults.buttonColors(
 //                        containerColor = MaterialTheme.colorScheme.secondaryContainer
 //                    ),
+                    enabled = validation.isAcceptableKmEntry(newKmEntryState.value + "/${totalKm.value}"),
                     onClick = {
                                 dbAddRecord(carId, newKmEntryState, validEntryState, navController, context, TAG)
                     }) {

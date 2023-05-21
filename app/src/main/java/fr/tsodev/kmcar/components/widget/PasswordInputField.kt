@@ -13,6 +13,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -35,15 +37,21 @@ fun PasswordInputField(
     imageVector: ImageVector,
     passwordVisibility: MutableState<Boolean>,
     imeAction: ImeAction = ImeAction.Done,
-    onAction: KeyboardActions
+    onAction: KeyboardActions,
+    isValid: (value: String) -> Boolean,
 ) {
 
+    var showError = remember { mutableStateOf(false) }
     val visualTransformation = if (passwordVisibility.value) VisualTransformation.None else
         PasswordVisualTransformation()
 
     OutlinedTextField(value = valueState.value,
-        onValueChange = {valueState.value = it},
+        onValueChange = {
+            valueState.value = it
+            showError.value = !isValid(it)
+                        },
         label = { Text(text = labelId) },
+        isError = showError.value,
         singleLine = isSingleLine,
         textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
         modifier = modifier.padding(bottom = 10.dp, start = 10.dp, end = 10.dp),

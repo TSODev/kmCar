@@ -24,9 +24,7 @@ import androidx.compose.material.icons.filled.CalendarMonth
 import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.ViewDay
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -39,7 +37,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -47,7 +44,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -62,6 +58,7 @@ import fr.tsodev.kmcar.components.InputField
 import fr.tsodev.kmcar.components.widget.DatePickerButton
 import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
+import fr.tsodev.kmcar.utils.validation
 import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -127,11 +124,6 @@ fun KmCreateCar( navController: NavController) {
                 )
             )
         },
-//        bottomBar = {
-//            BottomAppBar() {
-//
-//            }
-//        },
         content = { innerPadding ->
             Surface(modifier = Modifier
                 .padding(innerPadding)
@@ -142,7 +134,6 @@ fun KmCreateCar( navController: NavController) {
                     modifier = Modifier
                         .padding(5.dp)
                         .fillMaxSize(),
-     //                 .height(880.dp),
                     shape = RoundedCornerShape(10.dp),
                     elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
                     border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
@@ -155,16 +146,6 @@ fun KmCreateCar( navController: NavController) {
                         horizontalAlignment = Alignment.Start,
                         verticalArrangement = Arrangement.SpaceEvenly
                     ) {
-//                        Card(
-//                            modifier = Modifier
-//                                .padding(5.dp)
-//                                .fillMaxWidth(),
-////                                .height(360.dp),
-////                            shape = RoundedCornerShape(10.dp),
-////                            elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-////                            border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-//                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-//                        ) {
                             Column(
                                 modifier = Modifier
                                     .padding(12.dp)
@@ -185,7 +166,8 @@ fun KmCreateCar( navController: NavController) {
                                         if (!valid) return@KeyboardActions
                                         /* TODO */
                                     },
-                                    visible = true
+                                    visible = true,
+                                    isValid = {validation.isImmatriculation(immatriculation.value)}
                                 )
                                 InputField(
                                     //                    modifier = Modifier.focusRequester(carFocusRequest),
@@ -199,7 +181,8 @@ fun KmCreateCar( navController: NavController) {
                                         if (!valid) return@KeyboardActions
                                         /* TODO */
                                     },
-                                    visible = true
+                                    visible = true,
+                                    isValid = {true}
                                 )
                                 InputField(
                                     //                    modifier = Modifier.focusRequester(carFocusRequest),
@@ -213,7 +196,8 @@ fun KmCreateCar( navController: NavController) {
                                         if (!valid) return@KeyboardActions
                                         /* TODO */
                                     },
-                                    visible = true
+                                    visible = true,
+                                    isValid = {true}
                                 )
                                 Row(modifier = Modifier
                                     .padding(5.dp)
@@ -243,7 +227,8 @@ fun KmCreateCar( navController: NavController) {
                                         if (!valid) return@KeyboardActions
                                         /* TODO */
                                     },
-                                    visible = isLocation.value
+                                    visible = isLocation.value,
+                                    isValid = {true}
                                 )
                                 DatePickerButton(
                                     modifier = Modifier.width(300.dp),
@@ -264,7 +249,7 @@ fun KmCreateCar( navController: NavController) {
                                 Spacer(modifier = Modifier.height(80.dp))
                                 Button(
                                     modifier = Modifier.width(300.dp),
-                                    enabled = true,
+                                    enabled = validation.isImmatriculation(immatriculation.value),
                                     shape = RoundedCornerShape(corner = CornerSize(2.dp)),
                            //         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer),
                                     onClick = {

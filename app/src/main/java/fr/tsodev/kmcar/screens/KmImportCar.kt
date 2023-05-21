@@ -146,7 +146,8 @@ fun KmImportCar( navController: NavController) {
                             enabled = true,
                             isSingleLine = false,
                             visible = true,
-                            imageVector = Icons.Filled.CardTravel
+                            imageVector = Icons.Filled.CardTravel,
+                            isValid = {true}
                         )
                         Spacer(modifier = Modifier.width(120.dp))
                         Button(

@@ -31,6 +31,13 @@ class KmRepository(private val firestore: FirebaseFirestore) {
         return query.get()
     }
 
+    fun getEntriesForCar(carId: String) : Task<QuerySnapshot> {
+        val collectionRef: CollectionReference = firestore.collection("kmEntries")
+        val query: Query = collectionRef.whereEqualTo("carId", carId)
+        //       .whereEqualTo("userId", userId)
+        return query.get()
+    }
+
     fun addDocument(collectionPath: String, data: Map<String, Any>): Task<DocumentReference> {
         return firestore.collection(collectionPath).add(data)
     }

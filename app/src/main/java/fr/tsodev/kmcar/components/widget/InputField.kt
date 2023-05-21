@@ -14,6 +14,8 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.TextStyle
@@ -34,13 +36,20 @@ fun InputField (
     keyboardType : KeyboardType = KeyboardType.Ascii,
     imeAction : ImeAction = ImeAction.Next,
     onAction : KeyboardActions = KeyboardActions.Default,
-    validationRegEx: String = "",
+    isValid: (value: String) -> Boolean,
     visible: Boolean
     ) {
+    var showError = remember { mutableStateOf(false) }
+
         if (visible)
-        OutlinedTextField(value = valueState.value,
-            onValueChange = {valueState.value = it},
+        OutlinedTextField(
+            value = valueState.value,
+            onValueChange = {
+                valueState.value = it
+                showError.value = !isValid(it)
+                            },
             label = { Text(text = labelId)},
+            isError = showError.value,
             singleLine = isSingleLine,
             textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onPrimaryContainer),
             modifier = modifier.padding(bottom = 10.dp, start = 10.dp, end = 10.dp),
@@ -48,7 +57,8 @@ fun InputField (
             enabled = enabled,
             keyboardOptions = KeyboardOptions(keyboardType = keyboardType,
                                         imeAction = imeAction),
-            keyboardActions = onAction
+            keyboardActions = onAction,
+
         )
         else
             Box() {

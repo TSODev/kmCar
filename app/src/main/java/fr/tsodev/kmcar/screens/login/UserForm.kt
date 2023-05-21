@@ -28,6 +28,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import fr.tsodev.kmcar.R
+import fr.tsodev.kmcar.utils.validation
 
 @SuppressLint("RememberReturnType")
 @OptIn(ExperimentalComposeUiApi::class)
@@ -85,28 +86,33 @@ fun UserForm (
                 onAction = KeyboardActions {
                     passwordFocusRequest.requestFocus()
                 },
-                visible = true)
+                visible = true,
+                    isValid = {validation.isValidEmail(email.value)}
+                )
 
-                PasswordInputField(modifier = Modifier.focusRequester(passwordFocusRequest),
+                PasswordInputField(
+                    modifier = Modifier.focusRequester(passwordFocusRequest),
                     valueState = password,
                     labelId = "Mot de Passe",
                     enabled = !loading,
                     isSingleLine = true,
                     imageVector = Icons.Rounded.Lock,
                     passwordVisibility = passwordVisibility,
-                    onAction = KeyboardActions{
+                    isValid = { validation.isAcceptablePassword(password.value) },
+                    onAction = KeyboardActions {
                         if (!valid) return@KeyboardActions
                         onDone(email.value.trim(), password.value.trim())
 //                            carFocusRequest.requestFocus()
-                    })
+                    }
+                )
 
-            Spacer(modifier = Modifier.height(160.dp))
-        
-            SubmitButton(
-                textId = if (isCreateAccount) "Créer un compte" else "Login",
-                loading = loading,
-                validInputs = valid,
-            ){
+                            Spacer (modifier = Modifier.height(160.dp))
+
+                            SubmitButton (
+                            textId = if (isCreateAccount) "Créer un compte" else "Login",
+                    loading = loading,
+                    validInputs = valid,
+                ){
                 onDone(email.value.trim(), password.value.trim())
                 keyboardController?.hide()
             }

@@ -17,12 +17,18 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.outlined.AddCircle
+import androidx.compose.material.icons.outlined.ImportExport
+import androidx.compose.material.icons.outlined.Logout
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -45,6 +51,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
+import com.google.firebase.auth.FirebaseAuth
 import fr.tsodev.kmcar.R
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 
@@ -52,9 +59,8 @@ import fr.tsodev.kmcar.navigation.KmCarNavScreens
 @Composable
 fun KmAddCar(navController: NavController) {
 
-    var selector : MutableState<Boolean> = remember {
-        mutableStateOf(true)
-    }
+    var selector : MutableState<Boolean> = remember { mutableStateOf(true) }
+    var expanded: MutableState<Boolean> = remember { mutableStateOf(false) }
 
     Scaffold(
         topBar = {
@@ -83,18 +89,68 @@ fun KmAddCar(navController: NavController) {
                     }
                 },
                 actions = {
+                    IconButton(
+                        onClick = {
+                            expanded.value = !expanded.value
+                        },
+                    ) {
+                        Icon(
+                            modifier = Modifier.size(50.dp),
+                            imageVector = Icons.Filled.MoreVert,
+                            contentDescription = "More",
+                            tint = MaterialTheme.colorScheme.secondary
+                        )
+                    }
+                    DropdownMenu(
+                        expanded = expanded.value,
+                        onDismissRequest = { expanded.value = false }
+                    ) {
+                        DropdownMenuItem(
+                            text = { Text("Importer un véhicule existant") },
+                            onClick = { navController.navigate(KmCarNavScreens.KmImportCar.name) },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.ImportExport,
+                                    contentDescription = null
+                                )
+                            },
+                            enabled = true
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Ajouter un véhicule") },
+                            onClick = { navController.navigate(KmCarNavScreens.KmCreateCar.name) },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.AddCircle,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                        DropdownMenuItem(
+                            text = { Text("Déconnexion") },
+                            onClick = {
+                                FirebaseAuth.getInstance().signOut()
+                                navController.navigate(KmCarNavScreens.KmCarLoginScreen.name)
+//                                Toast.makeText(context, "Deconnexion", Toast.LENGTH_SHORT).show()
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    Icons.Outlined.Logout,
+                                    contentDescription = null
+                                )
+                            }
+                        )
+                    }
                 },
+
                 colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
                     containerColor = MaterialTheme.colorScheme.secondaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onSecondary
                 )
             )
         },
-        bottomBar = {
-            BottomAppBar() {
 
-            }
-        },
+
         content = { innerPadding ->
             Surface(modifier = Modifier
                 .padding(innerPadding)
@@ -128,7 +184,7 @@ fun KmAddCar(navController: NavController) {
                                 modifier = Modifier.size(width = 200.dp, height = 100.dp),
                                 enabled = true,
                                 shape = RoundedCornerShape(corner = CornerSize(2.dp)),
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF3F51B5))
+       //                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                                 )
                             {
                                 Text(text = "Ajouter avec un code",
@@ -139,7 +195,7 @@ fun KmAddCar(navController: NavController) {
                                 modifier = Modifier.size(width = 200.dp, height = 100.dp),
                                 enabled = true,
                                 shape = RoundedCornerShape(corner = CornerSize(2.dp)),
-                                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
+      //                          colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
                             )
                             {
                                 Text(text = "Créer un nouveau véhicule",
