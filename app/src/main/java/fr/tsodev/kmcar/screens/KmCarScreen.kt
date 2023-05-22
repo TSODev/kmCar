@@ -1,6 +1,5 @@
 package fr.tsodev.kmcar.screens
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -20,7 +19,6 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.ImportExport
 import androidx.compose.material.icons.outlined.Logout
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -42,8 +40,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -51,22 +47,13 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import fr.tsodev.kmcar.R
-import fr.tsodev.kmcar.components.KmListOfCars
 import fr.tsodev.kmcar.components.ShowCarInfos
-import fr.tsodev.kmcar.components.ShowProgress
-import fr.tsodev.kmcar.components.ShowProjectedDate
-import fr.tsodev.kmcar.components.ShowProjectedKm
-import fr.tsodev.kmcar.components.ShowTotalKm
 import fr.tsodev.kmcar.components.widget.LoadingProgressBar
 import fr.tsodev.kmcar.model.Car
-import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import fr.tsodev.kmcar.screens.home.HomeScreenViewModel
 import fr.tsodev.kmcar.utils.Constants
-import kotlin.math.ceil
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
@@ -201,29 +188,30 @@ fun KmCarScreen(navController: NavController,
                 .background(MaterialTheme.colorScheme.surface)
                 .fillMaxSize()
                 ) {
-                Card(modifier = Modifier
-                    .padding(5.dp)
-                    .fillMaxWidth()
-                    .height(680.dp),
-                    shape = RoundedCornerShape(20.dp),
-                    elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
-                    border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
-                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
-                ) {
-                    if (loading.value) {
-                        LoadingProgressBar()
-                    } else {
-                        Column(
-                            modifier = Modifier
-                                .padding(12.dp)
-                                .fillMaxSize(),
-                            horizontalAlignment = Alignment.Start,
-                            verticalArrangement = Arrangement.Top
-                        ) {
-                            ShowCarInfos(currentCar, navController, viewModel)
+                    Card(
+                        modifier = Modifier
+                            .padding(5.dp)
+                            .fillMaxWidth()
+                            .height(680.dp),
+                        shape = RoundedCornerShape(20.dp),
+                        elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+                        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                    ) {
+                        if (loading.value) {
+                            LoadingProgressBar()
+                        } else {
+                            Column(
+                                modifier = Modifier
+                                    .padding(12.dp)
+                                    .fillMaxSize(),
+                                horizontalAlignment = Alignment.Start,
+                                verticalArrangement = Arrangement.Top
+                            ) {
+                                ShowCarInfos(currentCar, navController)
+                            }
                         }
                     }
-                }
             }
 
 

@@ -3,7 +3,6 @@ package fr.tsodev.kmcar.screens
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -21,9 +20,7 @@ import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material.icons.outlined.AddCircle
 import androidx.compose.material.icons.outlined.ImportExport
 import androidx.compose.material.icons.outlined.Logout
-import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -36,7 +33,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
@@ -181,7 +177,7 @@ fun KmAddCar(navController: NavController) {
                         verticalAlignment = Alignment.CenterVertically)
                         {
                             Button(onClick = { navController.navigate(KmCarNavScreens.KmImportCar.name) },
-                                modifier = Modifier.size(width = 200.dp, height = 100.dp),
+                                modifier = Modifier.size(width = 150.dp, height = 100.dp),
                                 enabled = true,
                                 shape = RoundedCornerShape(corner = CornerSize(2.dp)),
        //                         colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)
@@ -190,9 +186,9 @@ fun KmAddCar(navController: NavController) {
                                 Text(text = "Ajouter avec un code",
                                     textAlign = TextAlign.Center )
                             }
-                            Spacer(modifier = Modifier.width(30.dp))
+                            Spacer(modifier = Modifier.width(10.dp))
                             Button(onClick = { navController.navigate(KmCarNavScreens.KmCreateCar.name)},
-                                modifier = Modifier.size(width = 200.dp, height = 100.dp),
+                                modifier = Modifier.size(width = 150.dp, height = 100.dp),
                                 enabled = true,
                                 shape = RoundedCornerShape(corner = CornerSize(2.dp)),
       //                          colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primaryContainer)

@@ -1,6 +1,7 @@
 package fr.tsodev.kmcar.screens.home
 
 import android.annotation.SuppressLint
+import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -45,6 +46,10 @@ fun HomeScreen(navController: NavController,
             listOfCarsForCurrentUser =
                 listOfCars.toList().filter { car -> car.userId == currentUser }
         }
+        else {
+            Log.d("HOME", "HomeScreen: Loading is finish without cars")
+        }
+
     }
 
 

@@ -12,7 +12,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -25,8 +24,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.modifier.modifierLocalConsumer
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
@@ -63,7 +60,7 @@ fun SplashScreen(navController : NavController) {
         .height(330.dp)
         .scale(scale.value),
             shape = RoundedCornerShape(20.dp),
-            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surfaceVariant,),
+            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface,),
             border = BorderStroke(width = 2.dp, color = Color.LightGray)
             ) {
             Column( modifier = Modifier.padding(1.dp)
@@ -77,7 +74,7 @@ fun SplashScreen(navController : NavController) {
                     Text(text = "KmCar",
                         style = MaterialTheme.typography.titleLarge,
                         color = MaterialTheme.colorScheme.primary)
- //                   KmLogo(imageId = R.drawable.car)
+                    KmLogo(imageId = R.drawable.kmlogo)
                     Spacer( modifier = Modifier.height(16.dp))
                     Text(text = " Suivi de votre LOA", style = MaterialTheme.typography.bodyMedium,
                             color = MaterialTheme.colorScheme.primary)

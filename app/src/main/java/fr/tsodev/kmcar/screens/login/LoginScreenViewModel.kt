@@ -1,13 +1,10 @@
 package fr.tsodev.kmcar.screens.login
 
 import android.util.Log
-import android.widget.Toast
-import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.fasterxml.jackson.annotation.ObjectIdGenerators.UUIDGenerator
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
@@ -15,7 +12,6 @@ import com.google.firebase.ktx.Firebase
 import fr.tsodev.kmcar.utils.Constants
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
-import java.util.UUID
 
 class LoginScreenViewModel: ViewModel() {
 
@@ -81,15 +77,16 @@ class LoginScreenViewModel: ViewModel() {
 
     }
 
-    fun signInWithUserAndPassword(email: String, password: String,  callback: () -> Unit)
+    fun signInWithUserAndPassword(email: String, password: String,onError: () -> Unit,  onSuccess: () -> Unit)
             = viewModelScope.launch {
         try {
             auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful){
                         Log.d("FBAUTH", "createUserWithEmailAndPassword: ${task.result.toString()}")
-                        callback()
+                        onSuccess()
                     } else {
+                        onError()
                         Log.d("FBAUTH", "createUserWithEmailAndPassword: ${task.exception?.message}")
                     }
 

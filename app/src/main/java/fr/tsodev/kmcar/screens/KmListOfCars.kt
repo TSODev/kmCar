@@ -1,5 +1,7 @@
 package fr.tsodev.kmcar.components
 
+import android.util.Log
+import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -62,8 +64,6 @@ import fr.tsodev.kmcar.screens.home.HomeScreenViewModel
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun KmListOfCars(
-//    listOfCars: List<Car>,
-//    selectedCar: MutableState<Car>,
     navController: NavController,
     viewModel: HomeScreenViewModel,
     ) {
@@ -216,6 +216,9 @@ fun KmListOfCars(
                                     .fillMaxWidth()
                                     .padding(30.dp)
                             ) {
+                                BackHandler(enabled = true) {
+                                    Log.d("LISTOFCAR", "KmListOfCars: Back Button disbaled")
+                                }
                                 ListItem(
                                     modifier = Modifier
                                         .clickable {

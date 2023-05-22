@@ -52,7 +52,7 @@ fun ShowTotalKm(navController: NavController,
         elevation = CardDefaults.cardElevation(
             defaultElevation = 4.dp
         ),
-        border = BorderStroke(1.dp, MaterialTheme.colorScheme.secondary),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary),
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surface,
         )

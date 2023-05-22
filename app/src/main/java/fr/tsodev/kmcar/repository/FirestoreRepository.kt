@@ -36,7 +36,8 @@ class FirestoreRepository @Inject constructor(private val queryEntry: Query,
             dataOrException.data = queryCar.get().await().documents.map { documentSnapshot: DocumentSnapshot ->
                 documentSnapshot.toObject(Car::class.java)!!
             }
-            if (!dataOrException.data.isNullOrEmpty()) dataOrException.loading = false
+//            if (!dataOrException.data.isNullOrEmpty())
+                dataOrException.loading = false
         } catch(exception: FirebaseFirestoreException) {
             dataOrException.e = exception
         }

@@ -1,5 +1,6 @@
 package fr.tsodev.kmcar.screens.login
 
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,7 +17,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight.Companion.Bold
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
@@ -32,6 +33,7 @@ fun KmCarLoginScreen (
     val showLoginForm = rememberSaveable {
         mutableStateOf(true)
     }
+    val context = LocalContext.current
 
     Surface(modifier = Modifier.fillMaxSize()) {
         Column(
@@ -44,10 +46,15 @@ fun KmCarLoginScreen (
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.primary
             )
-            Spacer(modifier = Modifier.height(100.dp))
+            Spacer(modifier = Modifier.height(60.dp))
             if (showLoginForm.value)
                 UserForm(loading = false, isCreateAccount = false) { email, password->
-                    viewModel.signInWithUserAndPassword(email = email, password = password)
+                    viewModel.signInWithUserAndPassword(
+                        email = email,
+                        password = password,
+                        onError = {
+                            Toast.makeText(context, "Compte ou Mot de Passe invalide", Toast.LENGTH_SHORT).show()
+                        })
                     {
                         navController.navigate(KmCarNavScreens.HomeScreen.name)
                     }
@@ -59,9 +66,9 @@ fun KmCarLoginScreen (
                 }
             }
         }
-        Spacer(modifier = Modifier.height(100.dp))
+        Spacer(modifier = Modifier.height(140.dp))
         Row(
-            modifier = Modifier.padding(15.dp),
+            modifier = Modifier.padding(vertical = 40.dp, horizontal = 15.dp),
             horizontalArrangement = Arrangement.Center,
             verticalAlignment = Alignment.CenterVertically
         )
