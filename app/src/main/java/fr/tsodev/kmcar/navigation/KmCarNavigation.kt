@@ -38,7 +38,7 @@ fun KmCarNavigation () {
                }
                 composable(KmCarNavScreens.HomeScreen.name) {
                     val homeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
-                    HomeScreen(navController = navController)
+                    HomeScreen(navController = navController, viewModel = homeScreenViewModel)
                 }
 
                 composable(KmCarNavScreens.AddNewKmEntry.name + "/{carId}") {navBackStackEntry ->

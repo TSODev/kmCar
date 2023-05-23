@@ -16,7 +16,6 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -34,7 +33,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -47,16 +45,13 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FirebaseFirestore
-import com.google.firebase.firestore.ktx.toObject
 import com.google.firebase.ktx.Firebase
 import fr.tsodev.kmcar.R
 import fr.tsodev.kmcar.components.InputField
-import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.model.KmRec
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import fr.tsodev.kmcar.repository.KmRepository
 import fr.tsodev.kmcar.screens.home.HomeScreenViewModel
-import fr.tsodev.kmcar.utils.Constants
 import fr.tsodev.kmcar.utils.DateUtils.Companion.dateToString
 import fr.tsodev.kmcar.utils.validation
 import java.time.Instant
@@ -79,8 +74,8 @@ fun AddNewKmEntry(navController: NavController,
     var listOfEntries = emptyList<KmRec>()
     val totalKm = remember { mutableStateOf("0") }
 
-    if (!viewModel.data.value.data.isNullOrEmpty()) {
-        listOfEntries = viewModel.data.value.data!!.toList()
+    if (!viewModel.kmEntry.value.data.isNullOrEmpty()) {
+        listOfEntries = viewModel.kmEntry.value.data!!.toList()
             .filter { kmRec -> kmRec.carId == carId }
             .sortedBy { it.date }
         if (!listOfEntries.isNullOrEmpty()) {

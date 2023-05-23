@@ -1,9 +1,12 @@
 package fr.tsodev.kmcar.repository
 
 import androidx.lifecycle.ViewModel
+import com.google.android.gms.tasks.Task
+import com.google.firebase.firestore.CollectionReference
 import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestoreException
 import com.google.firebase.firestore.Query
+import com.google.firebase.firestore.QuerySnapshot
 import fr.tsodev.kmcar.data.firestore.DataOrException
 import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.model.KmRec
@@ -43,4 +46,22 @@ class FirestoreRepository @Inject constructor(private val queryEntry: Query,
         }
         return dataOrException
     }
+
+    suspend fun getDocumentsForCar(carId: String) : DataOrException<List<Car>, Boolean, Exception> {
+        val dataOrException = DataOrException<List<Car>, Boolean, Exception>()
+        try {
+            dataOrException.loading = true
+            dataOrException.data = queryCar.get().await().documents
+                .map { docSnapshot ->
+                docSnapshot.toObject((Car::class.java))!!
+                }
+                .filter { car ->  car.id == carId }
+            dataOrException.loading = false
+        } catch(exception: FirebaseFirestoreException) {
+            dataOrException.e = exception
+        }
+        return dataOrException
+
+    }
+
 }

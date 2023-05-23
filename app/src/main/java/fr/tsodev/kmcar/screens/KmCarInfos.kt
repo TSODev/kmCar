@@ -46,16 +46,22 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.google.firebase.firestore.FirebaseFirestore
 import fr.tsodev.kmcar.R
 import fr.tsodev.kmcar.components.QrCodeComposable
 import fr.tsodev.kmcar.components.ShowProgress
+import fr.tsodev.kmcar.components.widget.GenericDialog
+import fr.tsodev.kmcar.components.widget.GenericDialogInfo
 import fr.tsodev.kmcar.components.widget.LoadingProgressBar
+import fr.tsodev.kmcar.components.widget.NegativeAction
+import fr.tsodev.kmcar.components.widget.PositiveAction
 import fr.tsodev.kmcar.components.widget.SimpleDialog
 import fr.tsodev.kmcar.model.Car
 import fr.tsodev.kmcar.navigation.KmCarNavScreens
 import fr.tsodev.kmcar.repository.KmRepository
+import fr.tsodev.kmcar.screens.home.HomeScreenViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -131,38 +137,65 @@ fun KmCarInfos(
                 LoadingProgressBar()
             }
             if (showDialog.value)
-                AlertDialog(
-                    onDismissRequest = {
-                        showDialog.value = false
-                    }
-                ) {
-                    Surface(
-                        modifier = Modifier
-                            .wrapContentWidth()
-                            .wrapContentHeight(),
-                        shape = MaterialTheme.shapes.large
-                    ) {
-                        Column( modifier = Modifier.padding(16.dp)) {
-                            Text(text = "Vous aller supprimer ce véhicule et tous les enregistrements qui lui sont attachés")
-                            Spacer(modifier = Modifier.height(24.dp))
-                            TextButton(onClick = {
+
+                        GenericDialog(
+                            onDismiss = {
+                                showDialog.value = false
+                            },
+                            title = "Supprimer un véhicule",
+                            description = "Vous aller supprimer ce véhicule et tous les enregistrements " +
+                                    "de kilométrage qui lui sont attachés",
+                            positiveAction = PositiveAction("Oui, vas-y !") {
                                 showDialog.value= false
                                 showLoadingProgressBar.value = true
                                 val data = KmRepository(FirebaseFirestore.getInstance())
-                                    .deleteCar(carId = carId)
-                                    .addOnSuccessListener {
-                                        navController.navigate(KmCarNavScreens.HomeScreen.name)
+                                    .deleteCarAndRelatedEntries(carId = carId)
+                                    .addOnSuccessListener { navController.navigate(KmCarNavScreens.HomeScreen.name)
                                     }
                                     .addOnFailureListener {
-                                        Log.d(TAG, "KmCarInfos: Erreur Suppression" )
+                                        Log.d(TAG, "KmCarInfos: Erreur Suppression Car" )
                                     }
+                            },
+                            negativeAction = NegativeAction("Non, Annule !") {
+                                showDialog.value = false
+                            }
+                        )
 
-                                        }) {
-                                            Text(text = "Confirme")
-                                            }
-                        }
-                    }
-                }
+
+
+
+//                AlertDialog(
+//                    onDismissRequest = {
+//                        showDialog.value = false
+//                    }
+//                ) {
+//                    Surface(
+//                        modifier = Modifier
+//                            .wrapContentWidth()
+//                            .wrapContentHeight(),
+//                        shape = MaterialTheme.shapes.large
+//                    ) {
+//                        Column( modifier = Modifier.padding(16.dp)) {
+//                            Text(text = "Vous aller supprimer ce véhicule et tous les enregistrements qui lui sont attachés")
+//                            Spacer(modifier = Modifier.height(24.dp))
+//                            TextButton(onClick = {
+//                                showDialog.value= false
+//                                showLoadingProgressBar.value = true
+//                                val data = KmRepository(FirebaseFirestore.getInstance())
+//                                    .deleteCar(carId = carId)
+//                                    .addOnSuccessListener {
+//                                        navController.navigate(KmCarNavScreens.HomeScreen.name)
+//                                    }
+//                                    .addOnFailureListener {
+//                                        Log.d(TAG, "KmCarInfos: Erreur Suppression" )
+//                                    }
+//
+//                                        }) {
+//                                            Text(text = "Confirme")
+//                                            }
+//                        }
+//                    }
+//                }
             Surface(
                 modifier = Modifier
                     .padding(innerPadding)

@@ -19,7 +19,7 @@ import javax.inject.Inject
 @HiltViewModel
 class HomeScreenViewModel @Inject constructor(
     private val repository: FirestoreRepository): ViewModel() {
-    val data: MutableState<DataOrException<List<KmRec>, Boolean, Exception>>
+    val kmEntry: MutableState<DataOrException<List<KmRec>, Boolean, Exception>>
             = mutableStateOf(DataOrException(listOf(), true,Exception("")))
     val cars: MutableState<DataOrException<List<Car>, Boolean, Exception>>
             = mutableStateOf(DataOrException(listOf(), true,Exception("")))
@@ -31,11 +31,11 @@ class HomeScreenViewModel @Inject constructor(
 
     private fun getAllEntriesFromDatabase() {
         viewModelScope.launch {
-            data.value.loading = true
-            data.value = repository.getAllEntriesFromDatabase()
-            if (!data.value.data.isNullOrEmpty()) data.value.loading = false
+            kmEntry.value.loading = true
+            kmEntry.value = repository.getAllEntriesFromDatabase()
+            if (!kmEntry.value.data.isNullOrEmpty()) kmEntry.value.loading = false
         }
-        Log.d("GET", "getAllEntriesFromDatabase: ${data.value.data?.toList().toString()}")
+        Log.d("GET", "getAllEntriesFromDatabase: ${kmEntry.value.data?.toList().toString()}")
 
     }
 
@@ -47,6 +47,15 @@ class HomeScreenViewModel @Inject constructor(
         }
         Log.d("GET", "getAllEntriesFromDatabase: ${cars.value.data?.toList().toString()}")
 
+    }
+
+    private fun getCarById(carId: String) {
+        viewModelScope.launch {
+            cars.value.loading = true
+            cars.value = repository.getDocumentsForCar(carId)
+            if (!cars.value.data.isNullOrEmpty()) cars.value.loading = false
+        }
+        Log.d("GET", "getAllEntriesFromDatabase: ${cars.value.data?.toList().toString()}")
     }
 
 

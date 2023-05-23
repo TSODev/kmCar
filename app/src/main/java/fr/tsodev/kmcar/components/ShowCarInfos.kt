@@ -29,8 +29,8 @@ fun ShowCarInfos(
     val viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
 
 
-    if (!viewModel.data.value.data.isNullOrEmpty()) {
-        listOfEntries = viewModel.data.value.data!!.toList()
+    if (!viewModel.kmEntry.value.data.isNullOrEmpty()) {
+        listOfEntries = viewModel.kmEntry.value.data!!.toList()
             .filter { kmRec -> kmRec.carId == car.id }
             .sortedBy { it.date }
         if (!listOfEntries.isEmpty()) {

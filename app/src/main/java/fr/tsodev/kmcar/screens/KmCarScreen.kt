@@ -62,7 +62,7 @@ fun KmCarScreen(navController: NavController,
                 carId: String) {
 
     val TAG = "KMCARSCREEN"
-    val viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
+//    val viewModel: HomeScreenViewModel = hiltViewModel<HomeScreenViewModel>()
     var listOfCars : List<Car> = emptyList<Car>()
     var filteredListOfCars : List<Car> = emptyList<Car>()
     var currentCar: Car = Constants.NO_CAR_FOUND
